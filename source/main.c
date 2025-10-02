@@ -8,7 +8,9 @@
 
 #include "keyboardGfx.h"
 
-static const int keyDimensions = 20;
+static const int keyDimensions = 16;
+static const int keysInRow = 12;
+static const int rowsOfKeys = 5;
 
 // Default keyboard map
 // Needs DVK_FOLD, DVK_MENU, DVK_LEFT, DVK_DOWN, DVK_RIGHT, DVK_UP
@@ -50,25 +52,25 @@ static const s16 KbdUpper[] =
 
 static const KeyMap capsOn =
 {
-    .mapDataPressed = keyboardGfxMap + keyDimensions * 2,
+    .mapDataPressed = keyboardGfxMap,
     .mapDataReleased = keyboardGfxMap,
     .keymap = KbdUpper,
-    .width = 24,
-    .height = 5
+    .width = keysInRow * 2,
+    .height = rowsOfKeys
 };
 
 static const KeyMap capsOff =
 {
-    .mapDataPressed = keyboardGfxMap + keyDimensions * 4,
-    .mapDataReleased = keyboardGfxMap + keyDimensions * 3,
+    .mapDataPressed = keyboardGfxMap,
+    .mapDataReleased = keyboardGfxMap,
     .keymap = KbdLower,
-    .width = 24,
-    .height = 5
+    .width = keysInRow * 2,
+    .height = rowsOfKeys
 };
 
 static const Keyboard customKeyboard =
 {
-    .scrollSpeed = 3,
+    .scrollSpeed = 4,
 
     .grid_width = keyDimensions/2,   // Grid width
     .grid_height = keyDimensions, // Grid height
@@ -94,6 +96,9 @@ static const Keyboard customKeyboard =
 
     .OnKeyPressed = NULL,            // keypress callback
     .OnKeyReleased = NULL,           // key release callback
+
+    .offset_x = -32,
+    .offset_y = -32,
 };
 
 int main(int argc, char **argv)

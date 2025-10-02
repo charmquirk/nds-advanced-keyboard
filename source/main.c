@@ -8,78 +8,188 @@
 
 #include "keyboardGfx.h"
 
-static const int keyDimensions = 16;
-static const int keysInRow = 12;
-static const int rowsOfKeys = 5;
-
 // Default keyboard map
 // Needs DVK_FOLD, DVK_MENU, DVK_LEFT, DVK_DOWN, DVK_RIGHT, DVK_UP
 static const s16 KbdLower[] =
 {
-    '1', '1', '2', '2', '3', '3', '4', '4', '5', '5', '6', '6',
-    '7', '7', '8', '8', '9', '9', '0', '0', '-', '-', '=', '=',
+    // Margin
+    NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+    NOKEY, NOKEY,
 
-    'q', 'q', 'w', 'w', 'e', 'e', 'r', 'r', 't', 't', 'y', 'y',
-    'u', 'u', 'i', 'i', 'o', 'o', 'p', 'p', '[', '[', ']', ']',
+    NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+    NOKEY, NOKEY, 
 
-    'a', 'a', 's', 's', 'd', 'd', 'f', 'f', 'g', 'g', 'h', 'h',
-    'j', 'j', 'k', 'k', 'l', 'l', ';', ';', '\'', '\'', '\\', '\\', 
+    // First Row
+    NOKEY, DVK_FOLD, DVK_FOLD, '1', '1', '2', '2', '3', '3', '4', '4', '5', '5', '6', '6',
+    '7',
+    
+    '7', '8', '8', '9', '9', '0', '0', '-', '-', '=', '=', DVK_BACKSPACE, DVK_BACKSPACE,
+    DVK_BACKSPACE, DVK_BACKSPACE, NOKEY,
 
-    NOKEY, 'z', 'z', 'x', 'x', 'c', 'c', 'v', 'v', 'b', 'b', 'n',
-    'n', 'm', 'm', ',', ',', '.', '.', '/', '/', '`', '`', NOKEY,
+    NOKEY, DVK_FOLD, DVK_FOLD, '1', '1', '2', '2', '3', '3', '4', '4', '5', '5', '6', '6',
+    '7',
+    
+    '7', '8', '8', '9', '9', '0', '0', '-', '-', '=', '=', DVK_BACKSPACE, DVK_BACKSPACE,
+    DVK_BACKSPACE, DVK_BACKSPACE, NOKEY,
 
-    DVK_TAB, DVK_TAB, DVK_ENTER,DVK_ENTER, DVK_CAPS, DVK_CAPS, DVK_ALT, DVK_ALT,
-    DVK_CTRL, DVK_CTRL, DVK_SPACE, DVK_SPACE, DVK_BACKSPACE, DVK_BACKSPACE, NOKEY, NOKEY,
+    // Second Row
+    NOKEY, DVK_TAB, DVK_TAB, DVK_TAB, 'q', 'q', 'w', 'w', 'e', 'e', 'r', 'r', 't', 't', 'y', 'y',
+
+    'u', 'u', 'i', 'i', 'o', 'o', 'p', 'p', '[', '[', ']', ']', NOKEY, NOKEY, NOKEY, NOKEY,
+
+    NOKEY, DVK_TAB, DVK_TAB, DVK_TAB, 'q', 'q', 'w', 'w', 'e', 'e', 'r', 'r', 't', 't', 'y', 'y',
+
+    'u', 'u', 'i', 'i', 'o', 'o', 'p', 'p', '[', '[', ']', ']', NOKEY, NOKEY, NOKEY, NOKEY,
+
+    //Third Row
+    NOKEY, 'a', 'a', 's', 's', 'd', 'd', 'f', 'f', 'g', 'g', 'h', 'h', 'j', 'j', 'k',
+
+    'k', 'l', 'l', ';', ';', '\'', '\'', '\\', '\\', '`', '`', NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+
+    NOKEY, 'a', 'a', 's', 's', 'd', 'd', 'f', 'f', 'g', 'g', 'h', 'h', 'j', 'j', 'k',
+
+    'k', 'l', 'l', ';', ';', '\'', '\'', '\\', '\\', '`', '`', NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+
+    //Fourth Row
+    NOKEY, DVK_SHIFT, DVK_SHIFT, DVK_SHIFT, 'z', 'z', 'x', 'x', 'c', 'c', 'v', 'v', 'b', 'b', 'n',
+    'n',
+    
+    'm', 'm', ',', ',', '.', '.', '/', '/', DVK_CAPS, DVK_CAPS, DVK_CAPS, NOKEY, DVK_UP, DVK_UP, NOKEY,
+    NOKEY,
+
+    NOKEY, DVK_SHIFT, DVK_SHIFT, DVK_SHIFT, 'z', 'z', 'x', 'x', 'c', 'c', 'v', 'v', 'b', 'b', 'n',
+    'n',
+    
+    'm', 'm', ',', ',', '.', '.', '/', '/', DVK_CAPS, DVK_CAPS, DVK_CAPS, DVK_LEFT, NOKEY, NOKEY,
+    DVK_RIGHT, NOKEY,
+
+    //Fifth Row
+    NOKEY, DVK_CTRL, DVK_CTRL, DVK_CTRL, DVK_ALT, DVK_ALT, DVK_ALT, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE,
+    DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE,
+
+    DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_ENTER, DVK_ENTER, DVK_ENTER, DVK_ENTER, DVK_MENU, DVK_MENU,
+    DVK_MENU, DVK_LEFT, NOKEY, NOKEY, DVK_RIGHT, NOKEY,
+
+    NOKEY, DVK_CTRL, DVK_CTRL, DVK_CTRL, DVK_ALT, DVK_ALT, DVK_ALT, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE,
+    DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE,
+
+    DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_ENTER, DVK_ENTER, DVK_ENTER, DVK_ENTER, DVK_MENU, DVK_MENU,
+    DVK_MENU, NOKEY, DVK_DOWN, DVK_DOWN, NOKEY, NOKEY,
+
+    // Margin
+    NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+    NOKEY, NOKEY,
+
+    NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+    NOKEY, NOKEY, 
 };
 
 static const s16 KbdUpper[] =
 {
-    '!', '!', '@', '@', '#', '#', '$', '$', '%', '%', '^', '^',
-    '&', '&', '*', '*', '(', '(', ')', ')', '_', '_', '+', '+',
+    // Margin
+    NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+    NOKEY, NOKEY,
 
-    'Q', 'Q', 'W', 'W', 'E', 'E', 'R', 'R', 'T', 'T', 'Y', 'Y',
-    'U', 'U', 'I', 'I', 'O', 'O', 'P', 'P', '{', '{', '}', '}',
+    NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+    NOKEY, NOKEY,
 
-    'A', 'A', 'S', 'S', 'D', 'D', 'F', 'F', 'G', 'G', 'H', 'H',
-    'J', 'J', 'K', 'K', 'L', 'L', ':', ':', '"', '"', '|', '|',
+    // First Row
+    NOKEY, DVK_FOLD, DVK_FOLD, '!', '!', '@', '@', '#', '#', '$', '$', '%', '%', '^', '^',
+    '&',
+    
+    '&', '*', '*', '(', '(', ')', ')', '_', '_', '+', '+', DVK_BACKSPACE, DVK_BACKSPACE,
+    DVK_BACKSPACE, DVK_BACKSPACE, NOKEY,
 
-    NOKEY, 'Z', 'Z', 'X', 'X', 'C', 'C', 'V', 'V', 'B', 'B', 'N',
-    'N', 'M', 'M', '<', '<', '>', '>', '?', '?', '~', '~', NOKEY,
+    NOKEY, DVK_FOLD, DVK_FOLD, '!', '!', '@', '@', '#', '#', '$', '$', '%', '%', '^', '^',
+    '&',
+    
+    '&', '*', '*', '(', '(', ')', ')', '_', '_', '+', '+', DVK_BACKSPACE, DVK_BACKSPACE,
+    DVK_BACKSPACE, DVK_BACKSPACE, NOKEY,
 
-    DVK_TAB, DVK_TAB, DVK_ENTER,DVK_ENTER, DVK_CAPS, DVK_CAPS, DVK_ALT, DVK_ALT,
-    DVK_CTRL, DVK_CTRL, DVK_SPACE, DVK_SPACE, DVK_BACKSPACE, DVK_BACKSPACE, NOKEY, NOKEY,
+    // Second Row
+    NOKEY, DVK_TAB, DVK_TAB, DVK_TAB, 'Q', 'Q', 'W', 'W', 'E', 'E', 'R', 'R', 'T', 'T', 'Y', 'Y',
+
+    'U', 'U', 'I', 'I', 'O', 'O', 'P', 'P', '{', '{', '}', '}', NOKEY, NOKEY, NOKEY, NOKEY,
+
+    NOKEY, DVK_TAB, DVK_TAB, DVK_TAB, 'Q', 'Q', 'W', 'W', 'E', 'E', 'R', 'R', 'T', 'T', 'Y', 'Y',
+
+    'U', 'U', 'I', 'I', 'O', 'O', 'P', 'P', '{', '{', '}', '}', NOKEY, NOKEY, NOKEY, NOKEY,
+
+    //Third Row
+    NOKEY, 'A', 'A', 'S', 'S', 'D', 'D', 'F', 'F', 'G', 'G', 'H', 'H', 'J', 'J', 'K',
+
+    'K', 'L', 'L', ':', ':', '"', '"', '|', '|', '~', '~', NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+
+    NOKEY, 'A', 'A', 'S', 'S', 'D', 'D', 'F', 'F', 'G', 'G', 'H', 'H', 'J', 'J', 'K',
+
+    'K', 'L', 'L', ':', ':', '"', '"', '|', '|', '~', '~', NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+
+    //Fourth Row
+    NOKEY, DVK_SHIFT, DVK_SHIFT, DVK_SHIFT, 'Z', 'Z', 'X', 'X', 'C', 'C', 'V', 'V', 'B', 'B', 'N',
+    'N',
+    
+    'M', 'M', '<', '<', '>', '>', '?', '?', DVK_CAPS, DVK_CAPS, DVK_CAPS, NOKEY, DVK_UP, DVK_UP, NOKEY,
+    NOKEY,
+
+    NOKEY, DVK_SHIFT, DVK_SHIFT, DVK_SHIFT, 'Z', 'Z', 'X', 'X', 'C', 'C', 'V', 'V', 'B', 'B', 'N',
+    'N',
+    
+    'M', 'M', '<', '<', '>', '>', '?', '?', DVK_CAPS, DVK_CAPS, DVK_CAPS, DVK_LEFT, NOKEY, NOKEY,
+    DVK_RIGHT, NOKEY,
+    
+    //Fifth Row
+    NOKEY, DVK_CTRL, DVK_CTRL, DVK_CTRL, DVK_ALT, DVK_ALT, DVK_ALT, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE,
+    DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE,
+
+    DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_ENTER, DVK_ENTER, DVK_ENTER, DVK_ENTER, DVK_MENU, DVK_MENU,
+    DVK_MENU, DVK_LEFT, NOKEY, NOKEY, DVK_RIGHT, NOKEY,
+
+    NOKEY, DVK_CTRL, DVK_CTRL, DVK_CTRL, DVK_ALT, DVK_ALT, DVK_ALT, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE,
+    DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_SPACE,
+
+    DVK_SPACE, DVK_SPACE, DVK_SPACE, DVK_ENTER, DVK_ENTER, DVK_ENTER, DVK_ENTER, DVK_MENU, DVK_MENU,
+    DVK_MENU, NOKEY, DVK_DOWN, DVK_DOWN, NOKEY, NOKEY,
+
+    // Margin
+    NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+    NOKEY, NOKEY,
+
+    NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY, NOKEY,
+    NOKEY, NOKEY, 
 };
+
+static const int keyboardOffset = 32;
 
 static const KeyMap capsOn =
 {
-    .mapDataPressed = keyboardGfxMap,
+    .mapDataPressed = keyboardGfxMap + keyboardOffset * 24,
     .mapDataReleased = keyboardGfxMap,
     .keymap = KbdUpper,
-    .width = keysInRow * 2,
-    .height = rowsOfKeys
+    .width = 32,
+    .height = 12
 };
 
 static const KeyMap capsOff =
 {
-    .mapDataPressed = keyboardGfxMap,
-    .mapDataReleased = keyboardGfxMap,
+    .mapDataPressed = keyboardGfxMap + keyboardOffset * 36,
+    .mapDataReleased = keyboardGfxMap + keyboardOffset * 12,
     .keymap = KbdLower,
-    .width = keysInRow * 2,
-    .height = rowsOfKeys
+    .width = 32,
+    .height = 12
 };
 
 static const Keyboard customKeyboard =
 {
-    .scrollSpeed = 4,
+    .scrollSpeed = 6,
 
-    .grid_width = keyDimensions/2,   // Grid width
-    .grid_height = keyDimensions, // Grid height
+    .grid_width = 8,   // Grid width
+    .grid_height = 8, // Grid height
 
     // By setting the initial state to uppercase, and marking the keyboard as
     // shifted, the first character will be uppercase and the next ones will be
     // lowercase, like with modern smartphone keyboards.
-    .shifted = true,
-    .state = Upper,
+    .shifted = false,
+    .state = Lower,
 
     .mappings = {
         &capsOff,   // keymap for lowercase
@@ -96,9 +206,6 @@ static const Keyboard customKeyboard =
 
     .OnKeyPressed = NULL,            // keypress callback
     .OnKeyReleased = NULL,           // key release callback
-
-    .offset_x = -32,
-    .offset_y = -32,
 };
 
 int main(int argc, char **argv)

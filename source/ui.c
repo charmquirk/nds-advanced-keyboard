@@ -35,8 +35,8 @@ void UserInterfaceUpdate()
     // Clear console
     consoleClear();
 
-    printf("START: Exit to loader\n"):
-    printf("A:     Show keyboard\n"):
+    printf("START: Exit to loader\n");
+    printf("A:     Show keyboard\n");
     printf("B:     Hide keyboard\n");
     printf("\n");
     printf("Total space: %zu chars\n", sizeof(string) - 1);

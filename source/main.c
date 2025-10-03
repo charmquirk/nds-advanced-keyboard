@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <nds.h>
+
+#include "inputs.h"
 #include "ui.h"
 
 
@@ -15,19 +17,12 @@ int main(int argc, char **argv)
     {
         swiWaitForVBlank();
 
-        scanKeys();
-        uint16_t keys_down = keysDown();
-
-        if (keys_down & KEY_A)
-            keyboardShow();
-
-        if (keys_down & KEY_B)
-            keyboardHide();
-
-        if (keys_down & KEY_START)
-            break;
+        InputUpdate();
         
         UserInterfaceUpdate();
+
+        if (breakMainLoop)
+            break;
     }
 
     return 0;

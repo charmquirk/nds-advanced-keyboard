@@ -3,11 +3,10 @@
 // SPDX-FileContributor: Antonio Niño Díaz, 2024
 
 #include <stdio.h>
-
 #include <nds.h>
-
+#include "keyboards.h"
 #include "keyboardGfx.h"
-#include "keyboards.c"
+
 
 int main(int argc, char **argv)
 {
@@ -20,10 +19,8 @@ int main(int argc, char **argv)
     // keyboard.
     lcdMainOnBottom();
 
-    SetKeyboard(1);
-
     // Initialize the keyboard and load its graphics
-    keyboardInit(customKeyboard,
+    keyboardInit(&customKeyboard,
                  3,                // Background layer to use
                  BgType_Text4bpp,  // 16 color palette format
                  BgSize_T_256x512, // Background size
@@ -49,8 +46,6 @@ int main(int argc, char **argv)
         printf("START: Exit to loader\n");
         printf("A:     Show keyboard\n");
         printf("B:     Hide keyboard\n");
-        printf("X:     Set keyboard to 0\n");
-        printf("Y:     Set keyboard to 0\n");
         printf("\n");
         printf("Total space: %zu chars", sizeof(string) - 1);
         printf("\n");
@@ -62,12 +57,6 @@ int main(int argc, char **argv)
 
         if (keys_down & KEY_B)
             keyboardHide();
-
-        if (keys_down & KEY_X)
-            SetKeyboard(1);
-        
-        if (keys_down & KEY_X)
-            SetKeyboard(0);
 
         // keyboardUpdate() returns -1 if there is no active keyboard, or if the
         // keyboard is hidden.

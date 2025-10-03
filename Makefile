@@ -6,7 +6,7 @@ BLOCKSDS	?= /opt/blocksds/core
 
 # User config
 
-NAME		:= Advanced_keyboards
+NAME		:= advanced_keyboards
 GAME_TITLE	:= Advanced Custom Keyboards
 GAME_SUBTITLE	:= Charm Quirk 2025
 

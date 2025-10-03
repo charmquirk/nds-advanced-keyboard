@@ -3,6 +3,9 @@
 #include "keyboardGfx.h"
 #include "keyboards.h"
 
+#define KEYS_IN_ROW 12
+#define ROWS_OF_KEYS 32
+
 static const s16 KbdLower[] =
 {
     // Margin
@@ -153,20 +156,20 @@ static const s16 KbdUpper[] =
 
 static const KeyMap capsOn =
 {
-    .mapDataPressed = keyboardGfxMap + 32 * 24,
+    .mapDataPressed = keyboardGfxMap + ROWS_OF_KEYS * KEYS_IN_ROW * 2,
     .mapDataReleased = keyboardGfxMap,
     .keymap = KbdUpper,
-    .width = 32,
-    .height = 12
+    .width = ROWS_OF_KEYS,
+    .height = KEYS_IN_ROW
 };
 
 static const KeyMap capsOff =
 {
-    .mapDataPressed = keyboardGfxMap + 32 * 36,
-    .mapDataReleased = keyboardGfxMap + 32 * 12,
+    .mapDataPressed = keyboardGfxMap + ROWS_OF_KEYS * KEYS_IN_ROW * 3,
+    .mapDataReleased = keyboardGfxMap + ROWS_OF_KEYS * KEYS_IN_ROW,
     .keymap = KbdLower,
-    .width = 32,
-    .height = 12
+    .width = ROWS_OF_KEYS,
+    .height = KEYS_IN_ROW
 };
 
 const Keyboard customKeyboard =

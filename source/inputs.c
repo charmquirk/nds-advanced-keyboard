@@ -1,7 +1,15 @@
 #include <nds.h>
 
-bool breakMainLoop;
+#include "main.h"
+#include "inputs.h"
+
 uint16_t keys_down;
+
+
+void InputInit()
+{
+    
+}
 
 void InputUpdate()
 {
@@ -15,6 +23,10 @@ void InputUpdate()
         keyboardHide();
 
     if (keys_down & KEY_START)
-        breakMainLoop = true;
+        isLooping = false;
+}
+
+void InputCleanup()
+{
     
 }

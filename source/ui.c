@@ -1,7 +1,8 @@
 
 #include <nds.h>
-#include "scriptsBg.h"
+
 #include "ui.h"
+#include "scriptsBg.h"
 #include "keyboards.h"
 
 // char consoleText[64];
@@ -44,4 +45,9 @@ void UserInterfaceUpdate()
     printf("Length: %d\n", strlen(string));
 
     TypingUpdate();
+}
+
+void UserInterfaceCleanup()
+{
+    
 }

@@ -249,3 +249,8 @@ void TypingUpdate()
         }
     }
 }
+
+void TypingCleanup()
+{
+    
+}

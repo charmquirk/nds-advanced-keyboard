@@ -6,3 +6,4 @@ extern int string_cursor;
 
 extern const void TypingInit();
 extern const void TypingUpdate();
+extern const void TypingCleanup();

@@ -7,23 +7,32 @@
 
 #include "inputs.h"
 #include "ui.h"
+#include "main.h"
+
+
+bool isLooping;
 
 
 int main(int argc, char **argv)
 {
+    InputInit();
+
     UserInterfaceInit();
 
-    while (1)
+    isLooping = true;
+
+    while (isLooping)
     {
         swiWaitForVBlank();
 
         InputUpdate();
         
         UserInterfaceUpdate();
-
-        if (breakMainLoop)
-            break;
     }
+
+    InputCleanup();
+
+    UserInterfaceCleanup();
 
     return 0;
 }

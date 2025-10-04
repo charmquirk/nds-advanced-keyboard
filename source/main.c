@@ -2,12 +2,11 @@
 //
 // SPDX-FileContributor: Antonio Niño Díaz, 2024
 
-#include <stdio.h>
 #include <nds.h>
 
+#include "main.h"
 #include "inputs.h"
 #include "ui.h"
-#include "main.h"
 
 
 bool isLooping;

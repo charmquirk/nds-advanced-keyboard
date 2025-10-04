@@ -1,6 +1,6 @@
 {
     "files.associations": {
         ".fantomasignore": "ignore",
-        "keyboardgfx.h": "c"
+        "kbdgfxgodot.h": "c"
     }
 }

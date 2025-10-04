@@ -29,6 +29,7 @@ void TypingInit()
                 
     string[0] = '\0';
     string_cursor = 0;
+    string_length = 0;
 }
 
 void TypingUpdate()
@@ -46,6 +47,20 @@ void TypingUpdate()
         {
             AddChar(string_cursor, c);
         }
+        else if (c == DVK_LEFT)
+        {
+            if (string_cursor > 0)
+                string_cursor--;
+        }
+        else if (c == DVK_RIGHT)
+        {
+            if (string_cursor < string_length)
+                string_cursor++;
+        }
+        // else if (c == DVK_DELETE)
+        // {
+        //     RemoveChar(string_cursor);
+        // }
     }
 }
 

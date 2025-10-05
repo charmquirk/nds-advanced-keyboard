@@ -2,7 +2,7 @@
 #include <nds.h>
 
 #include "ui.h"
-#include "scriptsBg.h"
+#include "backgrounds.h"
 #include "console.h"
 #include "keyboards.h"
 
@@ -14,11 +14,7 @@ void UserInterfaceInit()
 
     vramSetPrimaryBanks(VRAM_A_MAIN_BG, VRAM_B_LCD, VRAM_C_SUB_BG, VRAM_D_LCD);
 
-    int bg = bgInitSub(3, BgType_Text4bpp, BgSize_T_256x256, 1, 0);
-
-    dmaCopy(scriptsBgTiles, bgGetGfxPtr(bg), scriptsBgTilesLen);
-    dmaCopy(scriptsBgMap, bgGetMapPtr(bg), scriptsBgMapLen);
-    dmaCopy(scriptsBgPal, BG_PALETTE_SUB, scriptsBgPalLen);
+    BackgroundsInit();
 
     videoBgEnableSub(3);
 

@@ -24,8 +24,8 @@ void OutputConsoleUpdate()
     // Console header
     printf("START: Exit to loader\n");
     printf("A:     Show keyboard\n");
-    printf("B:     Hide keyboard\n");
-    printf("\n");
+    printf("B:     Hide keyboard\n\n");
+
     printf("Total space: %zu chars\n", sizeof(string) - 1);
     printf("Length: %d, Cursor: %d\n", string_length, string_cursor);
     printf("[");
@@ -45,7 +45,11 @@ void OutputConsoleUpdate()
         printf("%c", string[i]);
     }
     
-    printf("]\n");
+    printf("]\n\n");
+    printf("Keyboard: %d\n", keyboardIndex);
+    printf("Pointer: %p\n", customKeyboard);
+    printf("X:     Set keyboard to +1\n");
+    printf("Y:     Set keyboard to -1\n\n");
 }
     
 

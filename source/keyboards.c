@@ -1,6 +1,7 @@
 #include <nds.h>
 #include "keyboards.h"
 #include "kbd_godot.h"
+#include "kbd_numeric.h"
 
 
 char string[50];
@@ -13,22 +14,23 @@ enum input_mode {
     GESTURE
 };
 
+#define KEYBOARD_COUNT 2
+int keyboardIndex;
+Keyboard *customKeyboard;
+const Keyboard *keyboards[KEYBOARD_COUNT] =
+{
+    &kbdGodot,
+    &kbdNumeric
+};
+
 
 void TypingInit()
 {
-    // Initialize the keyboard and load its graphics
-    keyboardInit(&kbdGodot,
-                 1,                // Background layer to use
-                 BgType_Text4bpp,  // 16 color palette format
-                 BgSize_T_256x512, // Background size
-                 20,               // Map base
-                 0,                // Tile base
-                 true,             // Display it on the main screen
-                 true);            // Load graphics to VRAM
-                
     string[0] = '\0';
     string_cursor = 0;
     string_length = 0;
+    
+    SetKeyboard(0);
 }
 
 void TypingUpdate()
@@ -73,7 +75,8 @@ void TypingUpdate()
 
 void TypingCleanup()
 {
-    
+    keyboardHide();
+    keyboardExit();
 }
 
 void InsertChar(int index, char c)
@@ -112,4 +115,46 @@ void RemoveChar(int index)
         if (string_cursor > 0)
             string_cursor--;
     }
+}
+
+void SetKeyboard(int index)
+{
+    // Set the next index
+    if (index < 0 || index >= KEYBOARD_COUNT) {
+        // Wrap around the current range
+        index = ((index % KEYBOARD_COUNT) + KEYBOARD_COUNT) % KEYBOARD_COUNT;
+    }
+
+    if (index == keyboardIndex && customKeyboard != NULL)
+        return;
+
+    keyboardIndex = index;
+
+    // Set the next keyboard
+    if (index >= 0 && index < KEYBOARD_COUNT)
+    {
+        customKeyboard = keyboards[keyboardIndex];
+    }
+    else{
+        customKeyboard = NULL;
+    }
+    
+    keyboardExit();
+
+    // Load/init the keyboard
+    if (customKeyboard == NULL)
+    {
+        keyboardDemoInit();
+    }
+    else{
+        // Initialize the keyboard and load its graphics
+        keyboardInit(customKeyboard,
+                 1,                // Background layer to use
+                 BgType_Text4bpp,  // 16 color palette format
+                 BgSize_T_256x512, // Background size
+                 20,               // Map base
+                 0,                // Tile base
+                 true,             // Display it on the main screen
+                 true);            // Load graphics to VRAM
+    }   
 }

@@ -2,6 +2,7 @@
 
 #include "main.h"
 #include "inputs.h"
+#include "keyboards.h"
 
 uint16_t keys_down;
 
@@ -21,6 +22,12 @@ void InputUpdate()
 
     if (keys_down & KEY_B)
         keyboardHide();
+
+    if (keys_down & KEY_X)
+        SetKeyboard(keyboardIndex + 1);
+        
+    if (keys_down & KEY_Y)
+        SetKeyboard(keyboardIndex - 1);
 
     if (keys_down & KEY_START)
         isLooping = false;

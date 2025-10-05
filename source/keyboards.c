@@ -14,7 +14,6 @@ enum input_mode {
 };
 
 
-
 void TypingInit()
 {
     // Initialize the keyboard and load its graphics
@@ -45,7 +44,7 @@ void TypingUpdate()
         }
         else if (c >= 32)
         {
-            AddChar(string_cursor, c);
+            InsertChar(string_cursor, c);
         }
         else if (c == DVK_LEFT)
         {
@@ -57,9 +56,17 @@ void TypingUpdate()
             if (string_cursor < string_length)
                 string_cursor++;
         }
+        else if (c == DVK_UP)
+        {
+            string_cursor = string_length;
+        }
+        else if (c == DVK_DOWN)
+        {
+            string_cursor = 0;
+        }
         // else if (c == DVK_DELETE)
         // {
-        //     RemoveChar(string_cursor);
+        //     RemoveChar(&string, string_length, string_cursor);
         // }
     }
 }
@@ -69,7 +76,7 @@ void TypingCleanup()
     
 }
 
-void AddChar(int index, char c)
+void InsertChar(int index, char c)
 {
     if (string_length < (sizeof(string) - 1) && index >= 0 && index <= string_length)
     {
@@ -81,9 +88,10 @@ void AddChar(int index, char c)
         
         // Insert the new character
         string[index] = c;
-        string_length++;
-        string[string_length] = '\0'; // Always keep null terminator
+        
         string_cursor++;
+        string_length++;
+        string[string_length] = '\0';
     }
 }
 

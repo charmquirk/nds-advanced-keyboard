@@ -3,16 +3,14 @@
 
 #include "ui.h"
 #include "scriptsBg.h"
+#include "console.h"
 #include "keyboards.h"
 
-// char consoleText[64];
 
 void UserInterfaceInit()
 {
     videoSetMode(MODE_0_2D);
     videoSetModeSub(MODE_0_2D);
-
-    consoleDemoInit();
 
     vramSetPrimaryBanks(VRAM_A_MAIN_BG, VRAM_B_LCD, VRAM_C_SUB_BG, VRAM_D_LCD);
 
@@ -28,26 +26,19 @@ void UserInterfaceInit()
     // keyboard.
     lcdMainOnBottom();
 
+    OutputConsoleInit();
+
     TypingInit();
 }
 
 void UserInterfaceUpdate()
 {
-    // Clear console
-    consoleClear();
-
-    printf("START: Exit to loader\n");
-    printf("A:     Show keyboard\n");
-    printf("B:     Hide keyboard\n");
-    printf("\n");
-    printf("Total space: %zu chars\n", sizeof(string) - 1);
-    printf("[%s]\n", string);
-    printf("Length: %d\n", strlen(string));
-
+    OutputConsoleUpdate();
     TypingUpdate();
 }
 
 void UserInterfaceCleanup()
 {
-    
+    OutputConsoleCleanup();
+    TypingCleanup();
 }

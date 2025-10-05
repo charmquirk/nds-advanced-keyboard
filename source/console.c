@@ -2,17 +2,48 @@
 
 #include "console.h"
 #include "keyboards.h"
+// #include "backgrounds.h"
 
-PrintConsole outputConsole;
+#define CONSOLE_WINDOW_OFFSET_X 2
+#define CONSOLE_WINDOW_OFFSET_Y 2
+#define CONSOLE_WINDOW_WIDTH 30 + CONSOLE_WINDOW_OFFSET_X
+#define CONSOLE_WINDOW_HEIGHT 10 + CONSOLE_WINDOW_OFFSET_Y
+
+
+PrintConsole outputConsole =
+{
+    // .font =
+    // {
+    //     .gfx = default_fontTiles, // Font tiles
+    //     .pal = NULL,              // No font palette (use the default palettes)
+    //     .numColors = 0,
+    //     .bpp = 1,
+    //     .asciiOffset = 32,        // First ASCII character in the set
+    //     .numChars = 96            // Number of characters in the font set
+    // },
+ 
+    .consoleWidth = 32,
+    .consoleHeight = 24,
+    .windowX = CONSOLE_WINDOW_OFFSET_X,
+    .windowY = CONSOLE_WINDOW_OFFSET_Y,
+    .windowWidth = CONSOLE_WINDOW_WIDTH,
+    .windowHeight = CONSOLE_WINDOW_HEIGHT,
+    .tabSize = 3,
+    .PrintChar = NULL,
+};
 
 
 void OutputConsoleInit()
 {
-    // PrintConsole * 	consoleInitEx (PrintConsole *console, int layer, BgType type,
-    // BgSize size, int mapBase, int tileBase, int palIndex, int fontCharOffset,
-    // bool mainDisplay, bool loadGraphics)
-    // consoleInit(outputConsole, 0, NULL, NULL, 15, NULL, NULL, NULL);
-    consoleDemoInit();
+    consoleInit(&outputConsole,     // PrintConsole *console
+        0,                          // int layer
+        BgType_Text4bpp,            // BgType type
+        BgSize_T_256x256,           // BgSize size
+        31,   // int mapBase      bgGetMapBase(bg_console)?
+        0,  // int tileBase      bgGetTileBase(bg_console)?
+        false,                      // bool mainDisplay
+        true                        // bool loadGraphics
+    );
 }
 
 
@@ -48,8 +79,8 @@ void OutputConsoleUpdate()
     printf("]\n\n");
     printf("Keyboard: %d\n", keyboardIndex);
     printf("Pointer: %p\n", customKeyboard);
-    printf("X:     Set keyboard to +1\n");
-    printf("Y:     Set keyboard to -1\n\n");
+    printf("X:     Next keyboard\n");
+    printf("Y:     Previous keyboard\n\n");
 }
     
 

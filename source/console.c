@@ -3,9 +3,10 @@
 #include "console.h"
 #include "keyboards.h"
 // #include "backgrounds.h"
+#include "graphics.h"
 
-#define CONSOLE_WINDOW_OFFSET_X 2
-#define CONSOLE_WINDOW_OFFSET_Y 2
+#define CONSOLE_WINDOW_OFFSET_X 3
+#define CONSOLE_WINDOW_OFFSET_Y 5
 #define CONSOLE_WINDOW_WIDTH 30 + CONSOLE_WINDOW_OFFSET_X
 #define CONSOLE_WINDOW_HEIGHT 10 + CONSOLE_WINDOW_OFFSET_Y
 
@@ -39,10 +40,19 @@ void OutputConsoleInit()
         0,                          // int layer
         BgType_Text4bpp,            // BgType type
         BgSize_T_256x256,           // BgSize size
-        31,   // int mapBase      bgGetMapBase(bg_console)?
-        0,  // int tileBase      bgGetTileBase(bg_console)?
+        MB_BG_CONSOLE,              // int mapBase      bgGetMapBase(bg_console)?
+        TB_BG_CONSOLE,              // int tileBase      bgGetTileBase(bg_console)?
         false,                      // bool mainDisplay
         true                        // bool loadGraphics
+    );
+
+    // bgSetPriority(0, 0);
+    consoleSetWindow(
+        &outputConsole,             // PrintConsole *console
+        CONSOLE_WINDOW_OFFSET_X,    // int offset x (in tiles)
+        CONSOLE_WINDOW_OFFSET_Y,    // int offset y (in tiles)
+        CONSOLE_WINDOW_WIDTH,       // int width (in tiles)
+        CONSOLE_WINDOW_HEIGHT       // int height (in tiles)
     );
 }
 

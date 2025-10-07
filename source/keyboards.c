@@ -2,6 +2,7 @@
 #include "keyboards.h"
 #include "kbd_godot.h"
 #include "kbd_numeric.h"
+#include "graphics.h"
 
 
 char string[50];
@@ -149,12 +150,13 @@ void SetKeyboard(int index)
     else{
         // Initialize the keyboard and load its graphics
         keyboardInit(customKeyboard,
-                 1,                // Background layer to use
-                 BgType_Text4bpp,  // 16 color palette format
-                 BgSize_T_256x512, // Background size
-                 20,               // Map base
-                 0,                // Tile base
-                 true,             // Display it on the main screen
-                 true);            // Load graphics to VRAM
+                 1,                 // Background layer to use
+                 BgType_Text4bpp,   // 16 color palette format
+                 BgSize_T_256x512,  // Background size
+                 MB_BG_KEYBOARDS,   // Map base
+                 TB_BG_KEYBOARDS,   // Tile base
+                 true,              // Display it on the main screen
+                 true               // Load graphics to VRAM
+        );            
     }   
 }
